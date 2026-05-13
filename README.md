@@ -69,3 +69,17 @@ python manage.py createsuperuser
 
 # Run server
 python manage.py runserver
+
+## 👨‍🎓 Author
+
+**Artem Chigorov** (Чигаров Артем Александрович)
+
+Bachelor's thesis, Information Systems and Technologies  
+Security of Information Systems profile
+
+*Astrakhan State University named after V.N. Tatishchev*  
+*Astrakhan, 2025*
+
+## 📜 License
+
+MIT License - feel free to use for learning purposes
