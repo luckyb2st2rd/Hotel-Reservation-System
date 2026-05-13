@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Панель менеджера</h2>
+
+    <div class="mb-3 d-flex flex-wrap gap-2">
+        <a href="{% url 'add_room' %}" class="btn btn-success">Добавить новый номер</a>
+        <a href="{% url 'report_day' %}" class="btn btn-outline-primary">Отчёт за день (PDF)</a>
+        <a href="{% url 'report_week' %}" class="btn btn-outline-primary">Отчёт за неделю (PDF)</a>
+        <a href="{% url 'report_month' %}" class="btn btn-outline-primary">Отчёт за месяц (PDF)</a>
+    </div>
+
+    <div class="row">
+        {% for room in rooms %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if room.image %}
+                <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ room.name }}</h5>
+                    <p class="card-text"><strong>Цена:</strong> {{ room.prix }} ₽</p>
+                    <p class="card-text">{{ room.description|truncatewords:40 }}</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'edit_room' room.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                        <a href="{% url 'delete_room' room.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить номер?');">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

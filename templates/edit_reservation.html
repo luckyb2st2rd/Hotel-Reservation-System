@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Изменить бронирование{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">Редактировать бронирование</h2>
+
+  <form method="post" class="border p-4 bg-light rounded">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">
+            {{ field.errors|join:", " }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Сохранить изменения</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary ms-2">Отмена</a>
+  </form>
+{% endblock %}

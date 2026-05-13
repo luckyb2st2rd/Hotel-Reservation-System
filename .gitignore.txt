@@ -1,0 +1,27 @@
+# Секреты и пароли
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Django
+db.sqlite3
+*.log
+/media/
+/staticfiles/
+/assets/
+
+# IDE
+.vscode/
+.idea/
+*.swp

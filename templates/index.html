@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+  <div class="text-center mb-5">
+    <h1 class="display-5">Добро пожаловать в Uhostel</h1>
+    <p class="lead">Выберите номер для комфортного проживания</p>
+  </div>
+
+  {% if show_login_reminder %}
+    <div class="position-fixed top-0 end-0 me-4" style="z-index: 1050; margin-top: 5rem;">
+      <div class="alert alert-warning alert-dismissible fade show shadow" role="alert">
+        <strong>👋 Добро пожаловать!</strong><br>
+        <a href="{% url 'login' %}" class="alert-link">Войдите</a> или
+        <a href="{% url 'register' %}" class="alert-link">зарегистрируйтесь</a>, чтобы бронировать номера.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row">
+    {% for chambre in chambres %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm border-0">
+          {% if chambre.image %}
+            <img src="{{ chambre.image.url }}" class="card-img-top object-fit-cover" alt="{{ chambre.nom }}" style="height: 200px;">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">{{ chambre.nom }}</h5>
+            <p class="text-muted mb-1">{{ chambre.prix }} ₽</p>
+            <p class="card-text text-secondary small">
+              {{ chambre.description|truncatewords:20 }}
+            </p>
+            <div class="mt-auto d-flex justify-content-between">
+              <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#roomModal{{ chambre.id }}">
+                Узнать больше
+              </button>
+              <a href="{% url 'reservation' chambre.id %}" class="btn btn-sm btn-outline-dark">
+                Забронировать
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="roomModal{{ chambre.id }}" tabindex="-1" aria-labelledby="roomModalLabel{{ chambre.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="roomModalLabel{{ chambre.id }}">{{ chambre.nom }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  {% if chambre.image %}
+                    <img src="{{ chambre.image.url }}" alt="{{ chambre.nom }}" class="img-fluid rounded">
+                  {% else %}
+                    <img src="{% static 'img/placeholder.jpg' %}" class="img-fluid rounded" alt="Нет изображения">
+                  {% endif %}
+                </div>
+                <div class="col-md-6">
+                  <p>{{ chambre.description|linebreaks }}</p>
+                  <p><strong>Цена:</strong> {{ chambre.prix }} ₽ / ночь</p>
+                  {% if chambre.disponibilité %}
+                    <p class="text-success"><strong>Доступен для бронирования</strong></p>
+                  {% else %}
+                    <p class="text-danger"><strong>Недоступен сейчас</strong></p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="{% url 'reservation' chambre.id %}" class="btn btn-primary">Забронировать</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% empty %}
+      <div class="col-12">
+        <p class="text-muted text-center">Нет доступных номеров.</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Контакты - UHostel{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">Связаться с нами</h1>
+
+  <div class="row">
+    <!-- Левая колонка: Контакты и карта -->
+    <div class="col-md-6 mb-4">
+      <h5>Контактная информация</h5>
+      <ul class="list-unstyled">
+        <li><strong>Телефон:</strong> <a href="tel:+79880639043">+7 988 063-90-43</a> (доступен в WhatsApp)</li>
+        <li><strong>Email:</strong> <a href="mailto:uhostel1@xmail.ru">uhostel1@xmail.ru</a></li>
+      </ul>
+
+      <h5 class="mt-5">Мы на карте</h5>
+        <div class="map-container mb-4">
+          <iframe
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A8d039c4b254e82cafdf91019c7f504f0c9437cc0a71f708df4ab63be0660f644&amp;source=constructor"
+            width="100%"
+            height="400"
+            frameborder="0">
+          </iframe>
+        </div>
+
+    <!-- Правая колонка: форма -->
+    <div class="col-md-6">
+      <h5>Форма обратной связи</h5>
+      <form method="post" action="#">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Имя</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Сообщение</label>
+          <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Отправить</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
