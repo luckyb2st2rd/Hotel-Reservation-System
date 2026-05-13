@@ -69,10 +69,11 @@ python manage.py createsuperuser
 
 # Run server
 python manage.py runserver
+```
 
 ## 👨‍🎓 Author
 
-**Artem Chigorov** (Чигаров Артем Александрович)
+**Artem Chigarov** (Чигаров Артем Александрович)
 
 Bachelor's thesis, Information Systems and Technologies  
 Security of Information Systems profile
